@@ -1,7 +1,18 @@
 
 import { motion } from "framer-motion";
+import { useState } from "react";
+import ResumeViewer from "./ResumeViewer";
 
 const Hero = () => {
+  const [showResume, setShowResume] = useState(false);
+  const resumeUrl = "https://drive.google.com/file/d/10kjBp5VYh5y23NcpxRuVR73prWAnHaYt/view";
+  const profileImageUrl = "https://drive.google.com/uc?export=view&id=1vOla5-ktFkchcvlzyPBQq8Pq81oDVqbJ";
+  
+  const handleResumeClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setShowResume(true);
+  };
+
   return (
     <section id="home" className="min-h-screen flex items-center section-padding">
       <div className="container-custom grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -56,6 +67,15 @@ const Hero = () => {
               whileTap={{ scale: 0.95 }}
             >
               Contact Me
+            </motion.a>
+            <motion.a 
+              href="#"
+              onClick={handleResumeClick}
+              className="hover-scale px-6 py-3 bg-transparent border border-white/20 text-white font-medium rounded-md flex items-center justify-center"
+              whileHover={{ scale: 1.05, borderColor: "#ff3d00" }}
+              whileTap={{ scale: 0.95 }}
+            >
+              View Resume
             </motion.a>
             <motion.a 
               href="#projects"
@@ -115,13 +135,31 @@ const Hero = () => {
           <div className="relative">
             <div className="absolute -inset-4 bg-highlight/20 rounded-full blur-3xl"></div>
             <div className="relative w-64 h-64 md:w-80 md:h-80 overflow-hidden rounded-full border-4 border-highlight shadow-2xl shadow-highlight/20">
-              <div className="w-full h-full bg-gray-800 flex items-center justify-center text-4xl font-bold">
-                SK
-              </div>
+              <img 
+                src={profileImageUrl} 
+                alt="Sravan Kumar Gutta" 
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.src = '';
+                  target.alt = 'SK';
+                  target.parentElement!.classList.add('bg-gray-800');
+                  target.parentElement!.classList.add('flex');
+                  target.parentElement!.classList.add('items-center');
+                  target.parentElement!.classList.add('justify-center');
+                  target.parentElement!.innerHTML = '<div class="text-4xl font-bold">SK</div>';
+                }}
+              />
             </div>
           </div>
         </motion.div>
       </div>
+
+      <ResumeViewer 
+        isOpen={showResume} 
+        onClose={() => setShowResume(false)}
+        resumeUrl={resumeUrl}
+      />
     </section>
   );
 };

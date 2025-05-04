@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import BackgroundAnimation from "@/components/BackgroundAnimation";
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -27,6 +28,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
 
   return (
     <div className="relative">
+      <BackgroundAnimation />
       <motion.div 
         className="fixed top-0 left-0 right-0 h-1 bg-highlight origin-left z-50"
         style={{ scaleX }}

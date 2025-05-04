@@ -7,19 +7,29 @@ const projects = [
     title: "Face Recognition Attendance System",
     description: "A smart attendance system that uses facial recognition for automatic student attendance, helping automate classroom processes and improve efficiency.",
     tech: ["Python", "OpenCV", "Tkinter"],
-    github: "#"
+    github: "#",
+    image: "https://images.unsplash.com/photo-1556155092-490a1ba16284?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
+  },
+  {
+    title: "Smart Resume Match",
+    description: "An AI-powered tool that analyzes resumes and job descriptions to determine the best match and provide suggestions to improve compatibility.",
+    tech: ["Python", "NLP", "Machine Learning"],
+    github: "#",
+    image: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
   },
   {
     title: "HackerRank Plagiarism Checker",
     description: "A tool developed to detect plagiarism in coding assignments by comparing code submissions and identifying similarities.",
     tech: ["Java", "File Handling", "Algorithms"],
-    github: "#"
+    github: "#",
+    image: "https://images.unsplash.com/photo-1587620962725-abab7fe55159?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
   },
   {
     title: "Personal Web Application",
     description: "A responsive, clean web application developed to showcase my frontend development skills using HTML, CSS, and JavaScript.",
     tech: ["HTML", "CSS", "JavaScript"],
-    github: "#"
+    github: "#",
+    image: "https://images.unsplash.com/photo-1581472723648-909f4851d4ae?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
   }
 ];
 
@@ -40,7 +50,7 @@ const Projects = () => {
           <div className="w-24 h-1 bg-highlight mx-auto mt-4"></div>
         </motion.div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
           {projects.map((project, index) => (
             <motion.div 
               key={project.title} 
@@ -50,6 +60,13 @@ const Projects = () => {
               transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
               whileHover={{ y: -10, boxShadow: "0 10px 30px -15px rgba(255,61,0,0.3)" }}
             >
+              <div className="w-full h-48 overflow-hidden">
+                <img 
+                  src={project.image} 
+                  alt={project.title} 
+                  className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
+                />
+              </div>
               <div className="p-6">
                 <h3 className="text-xl font-bold mb-3">{project.title}</h3>
                 <p className="text-gray-400 text-sm mb-4">{project.description}</p>
