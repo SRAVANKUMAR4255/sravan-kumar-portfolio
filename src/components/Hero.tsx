@@ -7,7 +7,7 @@ import TypedText from "./TypedText";
 const Hero = () => {
   const [showResume, setShowResume] = useState(false);
   const resumeUrl = "https://drive.google.com/file/d/10kjBp5VYh5y23NcpxRuVR73prWAnHaYt/view";
-  const profileImageUrl = "https://drive.google.com/uc?export=view&id=1vOla5-ktFkchcvlzyPBQq8Pq81oDVqbJ";
+  const profileImageUrl = "/lovable-uploads/9de99f0d-8a7f-4b62-af3b-3b0ecf8c0ead.png";
   
   const roles = [
     "ML Engineer", 
@@ -148,16 +148,6 @@ const Hero = () => {
                 src={profileImageUrl} 
                 alt="Sravan Kumar Gutta" 
                 className="w-full h-full object-cover"
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  target.src = '';
-                  target.alt = 'SK';
-                  target.parentElement!.classList.add('bg-gray-800');
-                  target.parentElement!.classList.add('flex');
-                  target.parentElement!.classList.add('items-center');
-                  target.parentElement!.classList.add('justify-center');
-                  target.parentElement!.innerHTML = '<div class="text-4xl font-bold">SK</div>';
-                }}
               />
             </div>
           </div>

@@ -60,13 +60,13 @@ const BackgroundAnimation = () => {
         if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
         if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
         
-        // Draw particle
+        // Draw particle - Increased brightness
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.6)'; // Increased opacity for brightness
         ctx.fill();
         
-        // Connect particles
+        // Connect particles with brighter lines
         p.connections = [];
         for (let j = index + 1; j < particles.length; j++) {
           const dx = particles[j].x - p.x;
@@ -80,8 +80,8 @@ const BackgroundAnimation = () => {
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = `rgba(255, 255, 255, ${opacity * 0.2})`;
-            ctx.lineWidth = 0.5;
+            ctx.strokeStyle = `rgba(255, 255, 255, ${opacity * 0.4})`; // Increased opacity for brightness
+            ctx.lineWidth = 0.8; // Slightly thicker lines
             ctx.stroke();
           }
         }

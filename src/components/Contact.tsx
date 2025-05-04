@@ -1,10 +1,50 @@
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
+import emailjs from 'emailjs-com';
+import { useToast } from "@/hooks/use-toast";
 
 const Contact = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: false, amount: 0.2 });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { toast } = useToast();
+  const formRef = useRef<HTMLFormElement>(null);
+  
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    try {
+      await emailjs.sendForm(
+        'service_bfvbv4r', 
+        'template_u8ea206', 
+        e.target as HTMLFormElement,
+        'Acp8Q10MiXYFDzurc'
+      );
+      
+      toast({
+        title: "Message Sent!",
+        description: "Thanks for reaching out. I'll get back to you soon!",
+        duration: 5000,
+      });
+      
+      // Reset form
+      if (formRef.current) {
+        formRef.current.reset();
+      }
+    } catch (error) {
+      console.error('Email sending failed:', error);
+      toast({
+        title: "Message Failed",
+        description: "Sorry, something went wrong. Please try again later.",
+        variant: "destructive",
+        duration: 5000,
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
   
   return (
     <section id="contact" ref={ref} className="section-padding bg-secondary/30">
@@ -106,47 +146,56 @@ const Contact = () => {
           >
             <div className="glass-card p-6">
               <h3 className="text-2xl font-bold mb-6">Send Me a Message</h3>
-              <form>
+              <form ref={formRef} onSubmit={handleSubmit}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                   <div>
                     <label className="block text-sm font-medium mb-2">Your Name</label>
                     <input
+                      name="from_name"
                       type="text"
                       className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-md focus:outline-none focus:border-highlight"
                       placeholder="John Doe"
+                      required
                     />
                   </div>
                   <div>
                     <label className="block text-sm font-medium mb-2">Your Email</label>
                     <input
+                      name="reply_to"
                       type="email"
                       className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-md focus:outline-none focus:border-highlight"
                       placeholder="john@example.com"
+                      required
                     />
                   </div>
                 </div>
                 <div className="mb-6">
                   <label className="block text-sm font-medium mb-2">Subject</label>
                   <input
+                    name="subject"
                     type="text"
                     className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-md focus:outline-none focus:border-highlight"
                     placeholder="How can I help you?"
+                    required
                   />
                 </div>
                 <div className="mb-6">
                   <label className="block text-sm font-medium mb-2">Your Message</label>
                   <textarea
+                    name="message"
                     className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-md focus:outline-none focus:border-highlight min-h-[150px]"
                     placeholder="Write your message here..."
+                    required
                   ></textarea>
                 </div>
                 <motion.button
                   type="submit"
-                  className="px-6 py-3 bg-highlight text-white font-medium rounded-md shadow-lg shadow-highlight/20 hover:bg-highlight/90 transition-colors w-full"
+                  className="px-6 py-3 bg-highlight text-white font-medium rounded-md shadow-lg shadow-highlight/20 hover:bg-highlight/90 transition-colors w-full disabled:opacity-70"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
+                  disabled={isSubmitting}
                 >
-                  Send Message
+                  {isSubmitting ? 'Sending...' : 'Send Message'}
                 </motion.button>
               </form>
             </div>
