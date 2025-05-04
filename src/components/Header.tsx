@@ -27,13 +27,14 @@ const Header = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <span className="text-2xl font-bold">SK<span className="highlight-text">.</span></span>
+          {/* Removed SK logo */}
         </motion.div>
         
         <motion.nav
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
+          className="mx-auto" // Centered the navigation
         >
           <ul className="flex space-x-6">
             <li><a href="#home" className="hover:text-highlight transition-colors duration-300">Home</a></li>

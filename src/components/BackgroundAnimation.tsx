@@ -30,18 +30,18 @@ const BackgroundAnimation = () => {
       connections: any[];
     }[] = [];
     
-    const particleCount = Math.min(100, Math.floor(window.innerWidth / 20));
-    const connectionDistance = 150;
-    const particleSize = 1;
+    const particleCount = Math.min(150, Math.floor(window.innerWidth / 15)); // Increased particle count
+    const connectionDistance = 180; // Increased connection distance
+    const particleSize = 1.5; // Slightly larger particles
 
     // Create particles
     for (let i = 0; i < particleCount; i++) {
       particles.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        size: Math.random() * particleSize + 0.5,
-        speedX: (Math.random() - 0.5) * 0.5,
-        speedY: (Math.random() - 0.5) * 0.5,
+        size: Math.random() * particleSize + 0.8, // Increased minimum size
+        speedX: (Math.random() - 0.5) * 0.7, // Slightly faster movement
+        speedY: (Math.random() - 0.5) * 0.7,
         connections: []
       });
     }
@@ -60,10 +60,10 @@ const BackgroundAnimation = () => {
         if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
         if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
         
-        // Draw particle - Increased brightness
+        // Draw particle with increased brightness
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.6)'; // Increased opacity for brightness
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.85)'; // Increased opacity for more brightness
         ctx.fill();
         
         // Connect particles with brighter lines
@@ -80,8 +80,8 @@ const BackgroundAnimation = () => {
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = `rgba(255, 255, 255, ${opacity * 0.4})`; // Increased opacity for brightness
-            ctx.lineWidth = 0.8; // Slightly thicker lines
+            ctx.strokeStyle = `rgba(255, 255, 255, ${opacity * 0.6})`; // Increased opacity for brightness
+            ctx.lineWidth = 1; // Thicker lines for better visibility
             ctx.stroke();
           }
         }

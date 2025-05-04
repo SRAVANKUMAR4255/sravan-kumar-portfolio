@@ -16,10 +16,20 @@ const Contact = () => {
     setIsSubmitting(true);
     
     try {
-      await emailjs.sendForm(
+      const form = e.target as HTMLFormElement;
+      
+      // Make sure all required fields are filled
+      const formData = {
+        from_name: form.from_name.value,
+        reply_to: form.reply_to.value,
+        subject: form.subject.value,
+        message: form.message.value
+      };
+      
+      await emailjs.send(
         'service_bfvbv4r', 
         'template_u8ea206', 
-        e.target as HTMLFormElement,
+        formData,
         'Acp8Q10MiXYFDzurc'
       );
       
