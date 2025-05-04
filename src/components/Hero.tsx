@@ -2,12 +2,21 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import ResumeViewer from "./ResumeViewer";
+import TypedText from "./TypedText";
 
 const Hero = () => {
   const [showResume, setShowResume] = useState(false);
   const resumeUrl = "https://drive.google.com/file/d/10kjBp5VYh5y23NcpxRuVR73prWAnHaYt/view";
   const profileImageUrl = "https://drive.google.com/uc?export=view&id=1vOla5-ktFkchcvlzyPBQq8Pq81oDVqbJ";
   
+  const roles = [
+    "ML Engineer", 
+    "Software Developer", 
+    "AI Enthusiast", 
+    "Problem Solver",
+    "Tech Enthusiast"
+  ];
+
   const handleResumeClick = (e: React.MouseEvent) => {
     e.preventDefault();
     setShowResume(true);
@@ -38,14 +47,14 @@ const Hero = () => {
           >
             Sravan Kumar <span className="highlight-text">Gutta</span>
           </motion.h1>
-          <motion.p 
+          <motion.div
             className="text-xl md:text-2xl text-gray-400 mb-6"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6, duration: 0.6 }}
           >
-            B.Tech Student Specializing in <span className="highlight-text">AI & ML</span>
-          </motion.p>
+            <TypedText texts={roles} typingSpeed={100} deletingSpeed={50} delayBetweenTexts={1500} />
+          </motion.div>
           <motion.p 
             className="text-gray-400 mb-8 max-w-lg"
             initial={{ opacity: 0 }}

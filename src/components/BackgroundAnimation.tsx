@@ -20,19 +20,29 @@ const BackgroundAnimation = () => {
     handleResize();
     window.addEventListener('resize', handleResize);
 
-    // Line properties
-    const lines: any[] = [];
-    const lineCount = 20;
+    // Create particles
+    const particles: {
+      x: number;
+      y: number;
+      size: number;
+      speedX: number;
+      speedY: number;
+      connections: any[];
+    }[] = [];
     
-    // Create initial lines
-    for (let i = 0; i < lineCount; i++) {
-      lines.push({
+    const particleCount = Math.min(100, Math.floor(window.innerWidth / 20));
+    const connectionDistance = 150;
+    const particleSize = 1;
+
+    // Create particles
+    for (let i = 0; i < particleCount; i++) {
+      particles.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        length: Math.random() * 50 + 50,
-        opacity: Math.random() * 0.5 + 0.1,
-        direction: Math.random() * Math.PI * 2,
-        speed: Math.random() * 1 + 0.5,
+        size: Math.random() * particleSize + 0.5,
+        speedX: (Math.random() - 0.5) * 0.5,
+        speedY: (Math.random() - 0.5) * 0.5,
+        connections: []
       });
     }
 
@@ -40,27 +50,40 @@ const BackgroundAnimation = () => {
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
-      lines.forEach(line => {
+      // Update and draw particles
+      particles.forEach((p, index) => {
+        // Move particles
+        p.x += p.speedX;
+        p.y += p.speedY;
+        
+        // Bounce off edges
+        if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
+        
+        // Draw particle
         ctx.beginPath();
-        ctx.moveTo(line.x, line.y);
-        const endX = line.x + Math.cos(line.direction) * line.length;
-        const endY = line.y + Math.sin(line.direction) * line.length;
-        ctx.lineTo(endX, endY);
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+        ctx.fill();
         
-        ctx.strokeStyle = `rgba(255, 255, 255, ${line.opacity})`;
-        ctx.lineWidth = 1;
-        ctx.stroke();
-        
-        // Move lines
-        line.x += Math.cos(line.direction) * line.speed;
-        line.y += Math.sin(line.direction) * line.speed;
-        
-        // Reset lines that go off screen
-        if (line.x < -line.length || line.x > canvas.width + line.length || 
-            line.y < -line.length || line.y > canvas.height + line.length) {
-          line.x = Math.random() * canvas.width;
-          line.y = Math.random() * canvas.height;
-          line.direction = Math.random() * Math.PI * 2;
+        // Connect particles
+        p.connections = [];
+        for (let j = index + 1; j < particles.length; j++) {
+          const dx = particles[j].x - p.x;
+          const dy = particles[j].y - p.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          
+          if (distance < connectionDistance) {
+            p.connections.push(j);
+            const opacity = 1 - (distance / connectionDistance);
+            
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.strokeStyle = `rgba(255, 255, 255, ${opacity * 0.2})`;
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+          }
         }
       });
       
