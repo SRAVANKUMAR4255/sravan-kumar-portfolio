@@ -18,18 +18,6 @@ const Certifications = () => {
       issuer: "Simplilearn",
       date: "April 2023",
       link: "https://drive.google.com/file/d/16fVQ_mU1VrWL_b1nEilt_yfzT5gDnH0h/view?usp=sharing"
-    },
-    {
-      title: "Web Development Fundamentals",
-      issuer: "freeCodeCamp",
-      date: "January 2023",
-      link: "#"
-    },
-    {
-      title: "Python Programming",
-      issuer: "Coursera",
-      date: "November 2022",
-      link: "#"
     }
   ];
 
@@ -46,7 +34,7 @@ const Certifications = () => {
           <div className="w-24 h-1 bg-highlight mx-auto mt-4"></div>
         </motion.div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
           {certifications.map((cert, index) => (
             <motion.div 
               key={index}

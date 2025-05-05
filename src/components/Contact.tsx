@@ -23,8 +23,6 @@ const formSchema = z.object({
   reply_to: z.string().email("Please enter a valid email address"),
   subject: z.string().min(2, "Subject must be at least 2 characters"),
   message: z.string().min(10, "Message must be at least 10 characters"),
-  to_name: z.string().default("Sravan Kumar"),
-  to_email: z.string().default("sravankumargutta@gmail.com"),
 });
 
 const Contact = () => {
@@ -42,8 +40,6 @@ const Contact = () => {
       reply_to: "",
       subject: "",
       message: "",
-      to_name: "Sravan Kumar",
-      to_email: "sravankumargutta@gmail.com"
     },
   });
 
@@ -52,17 +48,19 @@ const Contact = () => {
     setFormError(null);
     
     try {
-      console.log('Sending email with params:', values);
+      // Add recipient information directly to the template parameters
+      const templateParams = {
+        ...values,
+        to_name: "Sravan Kumar",
+        to_email: "sravankumargutta@gmail.com"
+      };
+      
+      console.log('Sending email with params:', templateParams);
       
       const response = await emailjs.send(
         'service_bfvbv4r', 
         'template_u8ea206', 
-        {
-          ...values,
-          // Make sure recipient email is explicitly set
-          to_email: "sravankumargutta@gmail.com",
-          to_name: "Sravan Kumar"
-        },
+        templateParams,
         'Acp8Q10MiXYFDzurc'
       );
       
