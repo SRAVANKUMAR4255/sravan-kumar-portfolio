@@ -4,9 +4,9 @@ import { motion, useInView } from "framer-motion";
 
 const projects = [
   {
-    title: "Face Recognition Attendance System",
-    description: "A smart attendance system that uses facial recognition for automatic student attendance, helping automate classroom processes and improve efficiency.",
-    tech: ["Python", "OpenCV", "Tkinter"],
+    title: "Face Emotion Recognition using CNN",
+    description: "A deep learning system that uses Convolutional Neural Networks to detect and classify human facial emotions in real-time, helping in applications ranging from user experience to mental health monitoring.",
+    tech: ["Python", "TensorFlow", "OpenCV"],
     github: "#",
     image: "https://images.unsplash.com/photo-1556155092-490a1ba16284?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
   },

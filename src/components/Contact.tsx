@@ -1,4 +1,3 @@
-
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import emailjs from 'emailjs-com';
@@ -24,6 +23,8 @@ const formSchema = z.object({
   reply_to: z.string().email("Please enter a valid email address"),
   subject: z.string().min(2, "Subject must be at least 2 characters"),
   message: z.string().min(10, "Message must be at least 10 characters"),
+  to_name: z.string().default("Sravan Kumar"),
+  to_email: z.string().default("sravankumargutta@gmail.com"),
 });
 
 const Contact = () => {
@@ -40,7 +41,9 @@ const Contact = () => {
       from_name: "",
       reply_to: "",
       subject: "",
-      message: ""
+      message: "",
+      to_name: "Sravan Kumar",
+      to_email: "sravankumargutta@gmail.com"
     },
   });
 
@@ -54,7 +57,12 @@ const Contact = () => {
       const response = await emailjs.send(
         'service_bfvbv4r', 
         'template_u8ea206', 
-        values,
+        {
+          ...values,
+          // Make sure recipient email is explicitly set
+          to_email: "sravankumargutta@gmail.com",
+          to_name: "Sravan Kumar"
+        },
         'Acp8Q10MiXYFDzurc'
       );
       

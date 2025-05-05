@@ -24,7 +24,7 @@ const Education = () => {
     {
       degree: "10th Grade",
       field: "General Education",
-      institution: "Sri Chaitanya School",
+      institution: "Narayana EM School",
       year: "2019-2020",
       score: "94%"
     }
