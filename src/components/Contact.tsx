@@ -1,3 +1,4 @@
+
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import emailjs from 'emailjs-com';
@@ -48,11 +49,15 @@ const Contact = () => {
     setFormError(null);
     
     try {
-      // Add recipient information directly to the template parameters
+      // EmailJS expects recipient info in a specific format 
+      // Fix: Use the template parameters exactly as expected by your EmailJS template
       const templateParams = {
-        ...values,
-        to_name: "Sravan Kumar",
-        to_email: "sravankumargutta@gmail.com"
+        from_name: values.from_name,
+        reply_to: values.reply_to,
+        subject: values.subject,
+        message: values.message,
+        // No need to add to_name and to_email here as they should be 
+        // configured directly in your EmailJS template
       };
       
       console.log('Sending email with params:', templateParams);
