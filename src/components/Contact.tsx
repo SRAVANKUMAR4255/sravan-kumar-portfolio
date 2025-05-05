@@ -1,4 +1,3 @@
-
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import emailjs from 'emailjs-com';
@@ -16,22 +15,30 @@ const Contact = () => {
     setIsSubmitting(true);
     
     try {
-      const form = e.target as HTMLFormElement;
+      if (!formRef.current) {
+        throw new Error("Form reference not available");
+      }
       
       // Make sure all required fields are filled
-      const formData = {
-        from_name: form.from_name.value,
-        reply_to: form.reply_to.value,
-        subject: form.subject.value,
-        message: form.message.value
+      const formData = new FormData(formRef.current);
+      
+      const templateParams = {
+        from_name: formData.get('from_name') as string,
+        reply_to: formData.get('reply_to') as string,
+        subject: formData.get('subject') as string,
+        message: formData.get('message') as string
       };
       
-      await emailjs.send(
+      console.log('Sending email with params:', templateParams);
+      
+      const response = await emailjs.send(
         'service_bfvbv4r', 
         'template_u8ea206', 
-        formData,
+        templateParams,
         'Acp8Q10MiXYFDzurc'
       );
+      
+      console.log('Email sent successfully:', response);
       
       toast({
         title: "Message Sent!",
@@ -40,9 +47,7 @@ const Contact = () => {
       });
       
       // Reset form
-      if (formRef.current) {
-        formRef.current.reset();
-      }
+      formRef.current.reset();
     } catch (error) {
       console.error('Email sending failed:', error);
       toast({

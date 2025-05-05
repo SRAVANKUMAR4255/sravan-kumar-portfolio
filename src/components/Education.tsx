@@ -10,22 +10,22 @@ const Education = () => {
     {
       degree: "B.Tech",
       field: "Computer Science",
-      institution: "Educational Institution",
-      year: "2019-2023",
+      institution: "Vasireddy Venkatadri Institute of Engineering & Technology",
+      year: "2022-2026",
       score: "8.3 CGPA"
     },
     {
       degree: "Intermediate",
       field: "Science",
-      institution: "Educational Institution",
-      year: "2017-2019",
+      institution: "Narayana Junior College",
+      year: "2020-2022",
       score: "94.7%"
     },
     {
       degree: "10th Grade",
       field: "General Education",
-      institution: "Educational Institution",
-      year: "2017",
+      institution: "Sri Chaitanya School",
+      year: "2019-2020",
       score: "94%"
     }
   ];
