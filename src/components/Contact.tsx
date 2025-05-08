@@ -57,14 +57,17 @@ const Contact = () => {
       console.log('Sending notification email with params:', notificationParams);
       
       // Send notification email to site owner
-      const notificationResponse = await emailjs.send(
+      await emailjs.send(
         'service_8fftsra', 
         'template_qzwy0jp', 
         notificationParams,
         'pRJEOMAdjTnwjr7Zy'
-      );
-      
-      console.log('Notification email sent successfully:', notificationResponse);
+      ).then(function(response) {
+        console.log('Notification email sent successfully:', response);
+      }, function(error) {
+        console.error('Notification email failed:', error);
+        throw new Error('Failed to send notification email');
+      });
       
       // Parameters for auto-reply email (to the contact person)
       const autoReplyParams = {
@@ -76,14 +79,17 @@ const Contact = () => {
       console.log('Sending auto-reply email with params:', autoReplyParams);
       
       // Send auto-reply email to the person who submitted the form
-      const autoReplyResponse = await emailjs.send(
+      await emailjs.send(
         'service_8fftsra', 
         'template_gk26q0k', 
         autoReplyParams,
         'pRJEOMAdjTnwjr7Zy'
-      );
-      
-      console.log('Auto-reply email sent successfully:', autoReplyResponse);
+      ).then(function(response) {
+        console.log('Auto-reply email sent successfully:', response);
+      }, function(error) {
+        console.error('Auto-reply email failed:', error);
+        throw new Error('Failed to send auto-reply email');
+      });
       
       toast({
         title: "Message Sent!",
