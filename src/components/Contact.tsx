@@ -49,31 +49,49 @@ const Contact = () => {
     setFormError(null);
     
     try {
-      // EmailJS expects recipient info in a specific format 
-      // Fix: Use the template parameters exactly as expected by your EmailJS template
-      const templateParams = {
+      // Parameters for notification email (to site owner)
+      const notificationParams = {
         from_name: values.from_name,
         reply_to: values.reply_to,
         subject: values.subject,
         message: values.message,
-        // No need to add to_name and to_email here as they should be 
-        // configured directly in your EmailJS template
       };
       
-      console.log('Sending email with params:', templateParams);
+      console.log('Sending notification email with params:', notificationParams);
       
-      const response = await emailjs.send(
+      // Send notification email to site owner
+      const notificationResponse = await emailjs.send(
         'service_bfvbv4r', 
-        'template_u8ea206', 
-        templateParams,
+        'contact_notification', 
+        notificationParams,
         'Acp8Q10MiXYFDzurc'
       );
       
-      console.log('Email sent successfully:', response);
+      console.log('Notification email sent successfully:', notificationResponse);
+      
+      // Parameters for auto-reply email (to the contact person)
+      const autoReplyParams = {
+        to_name: values.from_name,
+        to_email: values.reply_to,
+        subject: `Re: ${values.subject}`,
+        message: values.message,
+      };
+      
+      console.log('Sending auto-reply email with params:', autoReplyParams);
+      
+      // Send auto-reply email to the person who submitted the form
+      const autoReplyResponse = await emailjs.send(
+        'service_bfvbv4r', 
+        'auto_reply', 
+        autoReplyParams,
+        'Acp8Q10MiXYFDzurc'
+      );
+      
+      console.log('Auto-reply email sent successfully:', autoReplyResponse);
       
       toast({
         title: "Message Sent!",
-        description: "Thanks for reaching out. I'll get back to you soon!",
+        description: "Thanks for reaching out. We've sent you a confirmation email.",
         duration: 5000,
       });
       
