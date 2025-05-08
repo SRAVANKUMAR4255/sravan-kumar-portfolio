@@ -47,6 +47,12 @@ const Contact = () => {
     setFormError(null);
     
     try {
+      // Define constants for EmailJS
+      const serviceID = 'service_8fftsra';
+      const notificationTemplateID = 'template_qzwy0jp';
+      const autoReplyTemplateID = 'template_gk26q0k';
+      const publicKey = 'pRJEOMAdjTnwjr7Zy';
+      
       // Parameters for notification email (to site owner)
       const notificationParams = {
         from_name: values.from_name,
@@ -56,18 +62,19 @@ const Contact = () => {
       
       console.log('Sending notification email with params:', notificationParams);
       
-      // Send notification email to site owner
-      await emailjs.send(
-        'service_8fftsra', 
-        'template_qzwy0jp', 
-        notificationParams,
-        'pRJEOMAdjTnwjr7Zy'
-      ).then(function(response) {
-        console.log('Notification email sent successfully:', response);
-      }, function(error) {
+      // Send notification email to site owner using try-catch instead of then-catch
+      try {
+        const notificationResponse = await emailjs.send(
+          serviceID, 
+          notificationTemplateID, 
+          notificationParams,
+          publicKey
+        );
+        console.log('Notification email sent successfully:', notificationResponse);
+      } catch (error) {
         console.error('Notification email failed:', error);
         throw new Error('Failed to send notification email');
-      });
+      }
       
       // Parameters for auto-reply email (to the contact person)
       const autoReplyParams = {
@@ -79,17 +86,18 @@ const Contact = () => {
       console.log('Sending auto-reply email with params:', autoReplyParams);
       
       // Send auto-reply email to the person who submitted the form
-      await emailjs.send(
-        'service_8fftsra', 
-        'template_gk26q0k', 
-        autoReplyParams,
-        'pRJEOMAdjTnwjr7Zy'
-      ).then(function(response) {
-        console.log('Auto-reply email sent successfully:', response);
-      }, function(error) {
+      try {
+        const autoReplyResponse = await emailjs.send(
+          serviceID, 
+          autoReplyTemplateID, 
+          autoReplyParams,
+          publicKey
+        );
+        console.log('Auto-reply email sent successfully:', autoReplyResponse);
+      } catch (error) {
         console.error('Auto-reply email failed:', error);
         throw new Error('Failed to send auto-reply email');
-      });
+      }
       
       toast({
         title: "Message Sent!",
