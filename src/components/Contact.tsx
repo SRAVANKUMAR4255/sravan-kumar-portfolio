@@ -21,8 +21,7 @@ import { AlertCircle } from "lucide-react";
 // Form validation schema
 const formSchema = z.object({
   from_name: z.string().min(2, "Name must be at least 2 characters"),
-  reply_to: z.string().email("Please enter a valid email address"),
-  subject: z.string().min(2, "Subject must be at least 2 characters"),
+  from_email: z.string().email("Please enter a valid email address"),
   message: z.string().min(10, "Message must be at least 10 characters"),
 });
 
@@ -38,8 +37,7 @@ const Contact = () => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       from_name: "",
-      reply_to: "",
-      subject: "",
+      from_email: "",
       message: "",
     },
   });
@@ -52,8 +50,7 @@ const Contact = () => {
       // Parameters for notification email (to site owner)
       const notificationParams = {
         from_name: values.from_name,
-        reply_to: values.reply_to,
-        subject: values.subject,
+        from_email: values.from_email,
         message: values.message,
       };
       
@@ -61,10 +58,10 @@ const Contact = () => {
       
       // Send notification email to site owner
       const notificationResponse = await emailjs.send(
-        'service_bfvbv4r', 
-        'contact_notification', 
+        'service_8fftsra', 
+        'template_qzwy0jp', 
         notificationParams,
-        'Acp8Q10MiXYFDzurc'
+        'pRJEOMAdjTnwjr7Zy'
       );
       
       console.log('Notification email sent successfully:', notificationResponse);
@@ -72,8 +69,7 @@ const Contact = () => {
       // Parameters for auto-reply email (to the contact person)
       const autoReplyParams = {
         to_name: values.from_name,
-        to_email: values.reply_to,
-        subject: `Re: ${values.subject}`,
+        to_email: values.from_email,
         message: values.message,
       };
       
@@ -81,17 +77,17 @@ const Contact = () => {
       
       // Send auto-reply email to the person who submitted the form
       const autoReplyResponse = await emailjs.send(
-        'service_bfvbv4r', 
-        'auto_reply', 
+        'service_8fftsra', 
+        'template_gk26q0k', 
         autoReplyParams,
-        'Acp8Q10MiXYFDzurc'
+        'pRJEOMAdjTnwjr7Zy'
       );
       
       console.log('Auto-reply email sent successfully:', autoReplyResponse);
       
       toast({
         title: "Message Sent!",
-        description: "Thanks for reaching out. We've sent you a confirmation email.",
+        description: "Thanks for reaching out. I've sent you a confirmation email.",
         duration: 5000,
       });
       
@@ -221,56 +217,36 @@ const Contact = () => {
               
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <FormField
-                      control={form.control}
-                      name="from_name"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Your Name</FormLabel>
-                          <FormControl>
-                            <input
-                              {...field}
-                              className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-md focus:outline-none focus:border-highlight"
-                              placeholder="John Doe"
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    
-                    <FormField
-                      control={form.control}
-                      name="reply_to"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Your Email</FormLabel>
-                          <FormControl>
-                            <input
-                              {...field}
-                              type="email"
-                              className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-md focus:outline-none focus:border-highlight"
-                              placeholder="john@example.com"
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-                  
                   <FormField
                     control={form.control}
-                    name="subject"
+                    name="from_name"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Subject</FormLabel>
+                        <FormLabel>Your Name</FormLabel>
                         <FormControl>
                           <input
                             {...field}
                             className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-md focus:outline-none focus:border-highlight"
-                            placeholder="How can I help you?"
+                            placeholder="John Doe"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  
+                  <FormField
+                    control={form.control}
+                    name="from_email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Your Email</FormLabel>
+                        <FormControl>
+                          <input
+                            {...field}
+                            type="email"
+                            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-md focus:outline-none focus:border-highlight"
+                            placeholder="john@example.com"
                           />
                         </FormControl>
                         <FormMessage />
