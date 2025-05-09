@@ -78,11 +78,13 @@ const Contact = () => {
       }
       
       // Send auto-reply email to the person who submitted the form
+      let autoReplySuccess = false;
       try {
-        // Fixed auto-reply parameters - ensure recipient_email is used correctly
+        // Make sure all parameter names match exactly what's expected in the EmailJS template
         const autoReplyParams = {
           to_name: values.from_name,
-          recipient_email: values.from_email, // This should match template variable name
+          to_email: values.from_email, // Changed from recipient_email to to_email
+          message: "Thank you for contacting me. I'll get back to you as soon as possible."
         };
         
         console.log('Sending auto-reply email with params:', autoReplyParams);
@@ -94,6 +96,7 @@ const Contact = () => {
           publicKey
         );
         console.log('Auto-reply email sent successfully:', autoReplyResponse);
+        autoReplySuccess = true;
       } catch (error) {
         console.error('Auto-reply email failed:', error);
         // Don't throw here, we'll still show success if notification email worked
@@ -102,7 +105,9 @@ const Contact = () => {
       
       toast({
         title: "Message Sent!",
-        description: "Thanks for reaching out. I've received your message.",
+        description: autoReplySuccess 
+          ? "Thanks for reaching out. I've sent you a confirmation email."
+          : "Thanks for reaching out. I've received your message.",
         duration: 5000,
       });
       
