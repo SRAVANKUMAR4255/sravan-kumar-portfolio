@@ -1,3 +1,4 @@
+
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import emailjs from 'emailjs-com';
@@ -46,7 +47,7 @@ const Contact = () => {
     setFormError(null);
     
     try {
-      // Define constants for EmailJS
+      // Define constants for EmailJS - update with correct account info
       const serviceID = 'service_8fftsra';
       const notificationTemplateID = 'template_qzwy0jp';
       const autoReplyTemplateID = 'template_gk26q0k';
@@ -79,11 +80,11 @@ const Contact = () => {
       // Send auto-reply email to the person who submitted the form
       let autoReplySuccess = false;
       try {
-        // Ensure parameters match EXACTLY what's in the EmailJS template
+        // Make sure these parameter names EXACTLY match your EmailJS template variables
         const autoReplyParams = {
           to_name: values.from_name,
-          to_email: values.from_email,
-          message: "Thank you for contacting me. I'll get back to you as soon as possible."
+          recipient_email: values.from_email, // This should match your template variable name
+          reply_message: "Thank you for contacting me. I'll get back to you as soon as possible."
         };
         
         console.log('Sending auto-reply email with params:', autoReplyParams);
