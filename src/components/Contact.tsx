@@ -79,12 +79,11 @@ const Contact = () => {
       // Send auto-reply email to the person who submitted the form
       let autoReplySuccess = false;
       try {
-        // Check the EmailJS template for the expected variable names
-        // Using the parameter names that exactly match the template variables
+        // Ensure parameters match EXACTLY what's in the EmailJS template
         const autoReplyParams = {
           to_name: values.from_name,
-          recipient_email: values.from_email, // Changed back to recipient_email as per template
-          reply_message: "Thank you for contacting me. I'll get back to you as soon as possible."
+          to_email: values.from_email,
+          message: "Thank you for contacting me. I'll get back to you as soon as possible."
         };
         
         console.log('Sending auto-reply email with params:', autoReplyParams);
@@ -100,7 +99,6 @@ const Contact = () => {
       } catch (error) {
         console.error('Auto-reply email failed:', error);
         // Don't throw here, we'll still show success if notification email worked
-        // Just log the error and continue
       }
       
       toast({
