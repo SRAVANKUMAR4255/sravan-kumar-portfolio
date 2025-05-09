@@ -1,4 +1,3 @@
-
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import emailjs from 'emailjs-com';
@@ -80,11 +79,12 @@ const Contact = () => {
       // Send auto-reply email to the person who submitted the form
       let autoReplySuccess = false;
       try {
-        // Make sure all parameter names match exactly what's expected in the EmailJS template
+        // Check the EmailJS template for the expected variable names
+        // Using the parameter names that exactly match the template variables
         const autoReplyParams = {
           to_name: values.from_name,
-          to_email: values.from_email, // Changed from recipient_email to to_email
-          message: "Thank you for contacting me. I'll get back to you as soon as possible."
+          recipient_email: values.from_email, // Changed back to recipient_email as per template
+          reply_message: "Thank you for contacting me. I'll get back to you as soon as possible."
         };
         
         console.log('Sending auto-reply email with params:', autoReplyParams);
