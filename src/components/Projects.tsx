@@ -7,28 +7,28 @@ const projects = [
     title: "Face Emotion Recognition using CNN",
     description: "A deep learning system that uses Convolutional Neural Networks to detect and classify human facial emotions in real-time, helping in applications ranging from user experience to mental health monitoring.",
     tech: ["Python", "TensorFlow", "OpenCV"],
-    github: "#",
+    github: "https://github.com/SRAVANKUMAR4255/facial_Emotion_Recogintion",
     image: "https://images.unsplash.com/photo-1556155092-490a1ba16284?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
   },
   {
     title: "Smart Resume Match",
     description: "An AI-powered tool that analyzes resumes and job descriptions to determine the best match and provide suggestions to improve compatibility.",
     tech: ["Python", "NLP", "Machine Learning"],
-    github: "#",
+    github: "#", // This remains unchanged as no new link was provided
     image: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
   },
   {
     title: "HackerRank Plagiarism Checker",
     description: "A tool developed to detect plagiarism in coding assignments by comparing code submissions and identifying similarities.",
     tech: ["Java", "File Handling", "Algorithms"],
-    github: "#",
+    github: "#", // This remains unchanged as no new link was provided
     image: "https://images.unsplash.com/photo-1587620962725-abab7fe55159?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
   },
   {
     title: "Personal Web Application",
     description: "A responsive, clean web application developed to showcase my frontend development skills using HTML, CSS, and JavaScript.",
     tech: ["HTML", "CSS", "JavaScript"],
-    github: "#",
+    github: "https://github.com/SRAVANKUMAR4255/sravan-kumar-portfolio",
     image: "https://images.unsplash.com/photo-1581472723648-909f4851d4ae?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
   }
 ];
@@ -97,3 +97,4 @@ const Projects = () => {
 };
 
 export default Projects;
+
