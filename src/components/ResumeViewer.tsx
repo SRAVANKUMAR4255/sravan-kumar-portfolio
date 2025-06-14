@@ -26,7 +26,7 @@ const ResumeViewer: React.FC<ResumeViewerProps> = ({ isOpen, onClose, resumeUrl 
         </div>
         <div className="flex-1 min-h-[70vh] overflow-hidden rounded-md border">
           <iframe
-            src={`https://docs.google.com/viewer?url=${encodeURIComponent(resumeUrl)}&embedded=true`}
+            src={resumeUrl} // Changed this line
             width="100%"
             height="100%"
             style={{ border: 'none' }}
@@ -39,3 +39,4 @@ const ResumeViewer: React.FC<ResumeViewerProps> = ({ isOpen, onClose, resumeUrl 
 };
 
 export default ResumeViewer;
+
