@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import { useState } from "react";
 import ResumeViewer from "./ResumeViewer";
@@ -6,7 +5,8 @@ import TypedText from "./TypedText";
 
 const Hero = () => {
   const [showResume, setShowResume] = useState(false);
-  const resumeUrl = "https://drive.google.com/file/d/10kjBp5VYh5y23NcpxRuVR73prWAnHaYt/view";
+  // Updated resumeUrl to use /preview for better embedding
+  const resumeUrl = "https://drive.google.com/file/d/10kjBp5VYh5y23NcpxRuVR73prWAnHaYt/preview";
   const profileImageUrl = "/lovable-uploads/9de99f0d-8a7f-4b62-af3b-3b0ecf8c0ead.png";
   
   const roles = [

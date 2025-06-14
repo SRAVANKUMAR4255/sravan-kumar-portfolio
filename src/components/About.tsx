@@ -7,7 +7,8 @@ const About = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: false, amount: 0.3 });
   const [showResume, setShowResume] = useState(false);
-  const resumeUrl = "https://drive.google.com/file/d/10kjBp5VYh5y23NcpxRuVR73prWAnHaYt/view";
+  // Updated resumeUrl to use /preview for better embedding
+  const resumeUrl = "https://drive.google.com/file/d/10kjBp5VYh5y23NcpxRuVR73prWAnHaYt/preview";
   
   return (
     <section id="about" ref={ref} className="section-padding bg-secondary/30">
@@ -60,3 +61,4 @@ const About = () => {
 };
 
 export default About;
+
